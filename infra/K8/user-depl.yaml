@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user-module-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: user-pod
+  template:
+    metadata:
+      labels:
+        app: user-pod
+    spec:
+      containers:
+        - name: user-contr
+          image: public.ecr.aws/s8j2k2x6/user
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: user-srv
+spec:
+  selector:
+    app: user-pod
+  ports:
+    - name: user-port
+      protocol: TCP
+      port: 5000
+      targetPort: 5000

@@ -1,0 +1,44 @@
+apiVersion: skaffold/v2alpha3
+kind: Config
+deploy:
+  kubectl:
+    manifests:
+      - ./infra/K8/*.yaml # yaml files for the kubernetes objects
+build:
+  # local:
+  #   push: false
+  googleCloudBuild:
+    projectId: tour-app-403717
+  artifacts: # array of images to be build
+    - image: us.gcr.io/tour-app-403717/user
+      context: user # path/directory
+      docker:
+        dockerfile: Dockerfile # Dockerfile should be there in the context
+      sync:
+        manual: # manually place these files inside the pod on updation, without rebuild
+          - src: "**/*.js"
+            dest: .
+    - image: us.gcr.io/tour-app-403717/tour
+      context: tour # path/directory
+      docker:
+        dockerfile: Dockerfile # Dockerfile should be there in the context
+      sync:
+        manual: # manually place these files inside the pod on updation, without rebuild
+          - src: "**/*.js"
+            dest: .
+    - image: us.gcr.io/tour-app-403717/view
+      context: view # path/directory
+      docker:
+        dockerfile: Dockerfile # Dockerfile should be there in the context
+      sync:
+        manual: # manually place these files inside the pod on updation, without rebuild
+          - src: "**/*.js"
+            dest: .
+    - image: us.gcr.io/tour-app-403717/booking
+      context: booking # path/directory
+      docker:
+        dockerfile: Dockerfile # Dockerfile should be there in the context
+      sync:
+        manual: # manually place these files inside the pod on updation, without rebuild
+          - src: "**/*.js"
+            dest: .

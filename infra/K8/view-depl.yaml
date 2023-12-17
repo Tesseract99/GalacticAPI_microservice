@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: view-module-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: view-pod
+  template:
+    metadata:
+      labels:
+        app: view-pod
+    spec:
+      containers:
+        - name: view-contr
+          image: public.ecr.aws/s8j2k2x6/view
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: view-srv
+spec:
+  selector:
+    app: view-pod
+  ports:
+    - name: view-port
+      protocol: TCP
+      port: 5000
+      targetPort: 5000

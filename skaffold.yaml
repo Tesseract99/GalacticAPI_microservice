@@ -1,0 +1,45 @@
+apiVersion: skaffold/v2alpha3
+kind: Config
+deploy:
+  kubectl:
+    manifests:
+      - ./infra/K8/nats-depl.yaml # yaml files for the Kubernetes objects
+      - ./infra/K8/user-depl.yaml
+      - ./infra/K8/ingress-srv.yaml
+      - ./infra/K8/booking-depl.yaml
+      - ./infra/K8/tour-depl.yaml
+      - ./infra/K8/view-depl.yaml
+build:
+  artifacts: # array of images to be build
+    - image: public.ecr.aws/s8j2k2x6/user
+      context: user # path/directory
+      docker:
+        dockerfile: Dockerfile # Dockerfile should be there in the context
+      sync:
+        manual: # manually place these files inside the pod on updation, without rebuild
+          - src: "**/*.js"
+            dest: .
+    - image: public.ecr.aws/s8j2k2x6/tour
+      context: tour # path/directory
+      docker:
+        dockerfile: Dockerfile # Dockerfile should be there in the context
+      sync:
+        manual: # manually place these files inside the pod on updation, without rebuild
+          - src: "**/*.js"
+            dest: .
+    - image: public.ecr.aws/s8j2k2x6/view
+      context: view # path/directory
+      docker:
+        dockerfile: Dockerfile # Dockerfile should be there in the context
+      sync:
+        manual: # manually place these files inside the pod on updation, without rebuild
+          - src: "**/*.js"
+            dest: .
+    - image: public.ecr.aws/s8j2k2x6/booking
+      context: booking # path/directory
+      docker:
+        dockerfile: Dockerfile # Dockerfile should be there in the context
+      sync:
+        manual: # manually place these files inside the pod on updation, without rebuild
+          - src: "**/*.js"
+            dest: .

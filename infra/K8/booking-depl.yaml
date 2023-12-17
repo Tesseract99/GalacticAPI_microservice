@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: booking-module-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: booking-pod
+  template:
+    metadata:
+      labels:
+        app: booking-pod
+    spec:
+      containers:
+        - name: booking-contr
+          image: public.ecr.aws/s8j2k2x6/booking
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: booking-srv
+spec:
+  selector:
+    app: booking-pod
+  ports:
+    - name: booking-port
+      protocol: TCP
+      port: 5000
+      targetPort: 5000

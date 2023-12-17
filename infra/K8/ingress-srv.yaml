@@ -1,0 +1,40 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-service
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/use-regex: "true"
+spec:
+  rules:
+    - host: tour.dev
+      http:
+        paths:
+          - path: /api/v1/users/?(.*)
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: user-srv
+                port:
+                  number: 5000
+          - path: /api/v1/tours/?(.*)
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: tour-srv
+                port:
+                  number: 5000
+          - path: /
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: view-srv
+                port:
+                  number: 5000
+          - path: /api/v1/bookings/?(.*)
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: booking-srv
+                port:
+                  number: 5000
