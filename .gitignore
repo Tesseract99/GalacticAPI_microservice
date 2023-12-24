@@ -2,3 +2,5 @@ node_modules
 dev-data
 */node_modules
 */env
+view/public/img/*
+pre-deployment.sh
