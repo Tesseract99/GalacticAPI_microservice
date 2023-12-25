@@ -22,7 +22,7 @@ pipeline {
             steps {
                 script {
                     // Authenticate Docker with AWS ECR
-                        docker.withRegistry("${AWS_ECR_REGISTRY}", 'ecr:us-east-1:aws_access_key_prithvi_general') {
+                        docker.withRegistry("${AWS_ECR_REGISTRY}", "ecr:us-east-1:aws_access_key_prithvi_general") {
                            
                             // Push the Docker image to ECR
                             docker.image("${DOCKER_IMAGE_NAME}").push()
