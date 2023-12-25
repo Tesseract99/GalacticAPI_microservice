@@ -3,13 +3,15 @@ pipeline {
 
     environment {
         // Set your AWS ECR registry URL
-        AWS_ECR_REGISTRY = 'https://public.ecr.aws/s8j2k2x6/user'
+        // AWS_ECR_REGISTRY = 'http://557571305961.dkr.ecr.us-east-1.amazonaws.com/user'
+        AWS_ECR_REGISTRY = "557571305961.dkr.ecr.us-east-1.amazonaws.com/"
         // Set your Docker image name
-        DOCKER_IMAGE_NAME = 'user'
+        DOCKER_TAG = "user:latest"
+        DOCKER_IMAGE_NAME = "${AWS_ECR_REGISTRY}${DOCKER_TAG}"
     }
 
     stages {
-        stage('Build Docker Image') {
+        stage('Build Docker Image: user') {
             steps {
                 script {
                     // Build Docker image from Dockerfile in the USER folder
@@ -20,13 +22,12 @@ pipeline {
 
         stage('Push to AWS ECR') {
             steps {
-              
-                   sh'''
-                   aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin ${AWS_ECR_REGISTRY}
-                   docker tag ${DOCKER_IMAGE_NAME}:latest public.ecr.aws/s8j2k2x6/${DOCKER_IMAGE_NAME}:latest
-                   docker push public.ecr.aws/s8j2k2x6/${DOCKER_IMAGE_NAME}:latest
-                    '''
-                
+                script{
+                  def dockerImage = docker.image("${DOCKER_IMAGE_NAME}")
+                   docker.withRegistry("http://${AWS_ECR_REGISTRY}", 'ecr:us-east-1:aws_access_key_prithvi_general2') {
+                    dockerImage.push()
+                   }
+                }
             }
         }
     }
