@@ -5,7 +5,7 @@ pipeline {
         // Set your AWS ECR registry URL
         AWS_ECR_REGISTRY = 'https://public.ecr.aws/s8j2k2x6/user'
         // Set your Docker image name
-        DOCKER_IMAGE_NAME = 'get-stronger-mind-body'
+        DOCKER_IMAGE_NAME = 'user'
     }
 
     stages {
@@ -20,15 +20,13 @@ pipeline {
 
         stage('Push to AWS ECR') {
             steps {
-                script {
-                    // Authenticate Docker with AWS ECR
-                        docker.withRegistry("${AWS_ECR_REGISTRY}", "ecr:us-east-1:aws_access_key_prithvi_general") {
-                           
-                            // Push the Docker image to ECR
-                            docker.image("${DOCKER_IMAGE_NAME}").push()
-                        }
-                    
-                }
+              
+                   sh'''
+                   aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin ${AWS_ECR_REGISTRY}
+                   docker tag ${DOCKER_IMAGE_NAME}:latest public.ecr.aws/s8j2k2x6/${DOCKER_IMAGE_NAME}:latest
+                   docker push public.ecr.aws/s8j2k2x6/${DOCKER_IMAGE_NAME}:latest
+                    '''
+                
             }
         }
     }
