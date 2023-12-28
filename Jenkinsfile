@@ -15,7 +15,9 @@ pipeline {
             steps {
                 script {
                     // Build Docker image from Dockerfile in the USER folder
-                    docker.build("${DOCKER_IMAGE_NAME}", "--file user/Dockerfile .")
+                    dir('user') {
+                    docker.build("${DOCKER_IMAGE_NAME}", "--file Dockerfile .")
+                    }
                 }
             }
         }
