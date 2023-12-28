@@ -14,7 +14,74 @@ spec:
     spec:
       containers:
         - name: user-contr
-          image: public.ecr.aws/s8j2k2x6/user
+          # image: public.ecr.aws/s8j2k2x6/user
+          image: 557571305961.dkr.ecr.us-east-1.amazonaws.com/user:latest
+          env:
+            - name: PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: user-svc-config
+                  key: PORT
+            - name: NODE_ENV
+              valueFrom:
+                configMapKeyRef:
+                  name: user-svc-config
+                  key: NODE_ENV
+            - name: DATABASE
+              valueFrom:
+                configMapKeyRef:
+                  name: user-svc-config
+                  key: DATABASE
+            - name: DATABASE_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: user-svc-config
+                  key: DATABASE_PASSWORD
+            - name: JWT_SECRET_KEY
+              valueFrom:
+                configMapKeyRef:
+                  name: user-svc-config
+                  key: JWT_SECRET_KEY
+            - name: JWT_EXPIRES_IN
+              valueFrom:
+                configMapKeyRef:
+                  name: user-svc-config
+                  key: JWT_EXPIRES_IN
+            - name: JWT_COOKIE_EXPIRES_IN
+              valueFrom:
+                configMapKeyRef:
+                  name: user-svc-config
+                  key: JWT_COOKIE_EXPIRES_IN
+            - name: RZPAY_KEYID
+              valueFrom:
+                configMapKeyRef:
+                  name: user-svc-config
+                  key: RZPAY_KEYID
+            - name: RZPAY_KEYSECRET
+              valueFrom:
+                configMapKeyRef:
+                  name: user-svc-config
+                  key: RZPAY_KEYSECRET
+            - name: git_token
+              valueFrom:
+                configMapKeyRef:
+                  name: user-svc-config
+                  key: git_token
+            - name: NATS_CLUSTER_ID
+              valueFrom:
+                configMapKeyRef:
+                  name: user-svc-config
+                  key: NATS_CLUSTER_ID
+            - name: NATS_CLIENT_ID
+              valueFrom:
+                configMapKeyRef:
+                  name: user-svc-config
+                  key: NATS_CLIENT_ID
+            - name: NATS_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: user-svc-config
+                  key: NATS_URL
 ---
 apiVersion: v1
 kind: Service
