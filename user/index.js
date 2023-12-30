@@ -8,11 +8,10 @@ dotenv.config({ path: "./env/config.env" });
 const rand = randomstring.generate(5);
 
 //mongoose
-const DB = process.env.DATABASE.replace(
+let DB = process.env.DATABASE.replace(
   "<password>",
   process.env.DATABASE_PASSWORD
 );
-console.log("DB is: ", DB);
 
 mongoose
   .connect(DB, {
