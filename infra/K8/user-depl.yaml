@@ -14,8 +14,8 @@ spec:
     spec:
       containers:
         - name: user-contr
-          # image: public.ecr.aws/s8j2k2x6/user
-          image: 557571305961.dkr.ecr.us-east-1.amazonaws.com/user:latest
+          image: public.ecr.aws/s8j2k2x6/user
+          # image: 557571305961.dkr.ecr.us-east-1.amazonaws.com/user:latest
           volumeMounts: #mount the volume from POD into the container
             - name: config-env-vol
               mountPath: /app/env
@@ -27,6 +27,26 @@ spec:
                 secretKeyRef:
                   name: tour-global-secret
                   key: DATABASE_PASSWORD
+            - name: JWT_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: tour-global-secret
+                  key: JWT_SECRET_KEY
+            - name: RZPAY_KEYID
+              valueFrom:
+                secretKeyRef:
+                  name: tour-global-secret
+                  key: RZPAY_KEYID
+            - name: RZPAY_KEYSECRET
+              valueFrom:
+                secretKeyRef:
+                  name: tour-global-secret
+                  key: RZPAY_KEYSECRET
+            - name: git_token
+              valueFrom:
+                secretKeyRef:
+                  name: tour-global-secret
+                  key: git_token
 
       volumes: #mount a volume to the POD
         - name: config-env-vol

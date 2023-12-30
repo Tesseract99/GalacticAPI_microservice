@@ -3,14 +3,14 @@ const { natsWrapper } = require("@tour-app-registry/common");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const app = require("./app");
-const base64url = require("base64url");
 
 dotenv.config({ path: "./env/config.env" });
 
 const rand = randomstring.generate(5);
 
 //mongoose
-const DATABASE_PASSWORD = base64url.decode(process.env.DATABASE_PASSWORD);
+
+const DATABASE_PASSWORD = process.env.DATABASE_PASSWORD;
 let DB = process.env.DATABASE.replace("<password>", DATABASE_PASSWORD);
 
 mongoose
