@@ -4,3 +4,10 @@ dev-data
 */env
 view/public/img/*
 pre-deployment.sh
+config_secret
+scripts
+infra/terraform/properties.tf
+infra/terraform/terraform.tfvars
+skaffold.yaml
+infra/terraform/.terraform
+infra/terraform/.terraform.lock.hcl

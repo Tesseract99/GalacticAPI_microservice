@@ -15,6 +15,41 @@ spec:
       containers:
         - name: booking-contr
           image: public.ecr.aws/s8j2k2x6/booking
+          # image: 557571305961.dkr.ecr.us-east-1.amazonaws.com/booking:latest
+          volumeMounts: #mount the volume from POD into the container
+            - name: config-env-vol
+              mountPath: /app/env
+          env:
+            - name: DATABASE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: tour-global-secret
+                  key: DATABASE_PASSWORD
+            - name: JWT_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: tour-global-secret
+                  key: JWT_SECRET_KEY
+            - name: RZPAY_KEYID
+              valueFrom:
+                secretKeyRef:
+                  name: tour-global-secret
+                  key: RZPAY_KEYID
+            - name: RZPAY_KEYSECRET
+              valueFrom:
+                secretKeyRef:
+                  name: tour-global-secret
+                  key: RZPAY_KEYSECRET
+            - name: git_token
+              valueFrom:
+                secretKeyRef:
+                  name: tour-global-secret
+                  key: git_token
+
+      volumes: #mount a volume to the POD
+        - name: config-env-vol
+          configMap:
+            name: booking-svc-config
 ---
 apiVersion: v1
 kind: Service
