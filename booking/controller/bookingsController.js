@@ -53,6 +53,7 @@ exports.createCheckoutSession = catchAsync(async (req, res, next) => {
   };
 
   const order = await instance.orders.create(options);
+
   sendJwtToken(200, tour, order, res);
   // res.status(200).json({
   //   status: "success",
