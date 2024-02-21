@@ -38,3 +38,23 @@ spec:
                 name: booking-srv
                 port:
                   number: 5000
+    - host: prometheus.dev
+      http:
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: prometheus-srv
+                port:
+                  number: 9090
+    - host: graphana.dev
+      http:
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: graphana-srv
+                port:
+                  number: 3000
