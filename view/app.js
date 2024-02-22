@@ -6,6 +6,7 @@ const rateLimit = require("express-rate-limit");
 const reviewRouter = require("./routes/reviewRoutes");
 // const bookingsRouter = require("./routes/bookingsRoutes");
 const viewRouter = require("./routes/viewRouter");
+const prometheusRouter = require("./routes/prometheus");
 const helmet = require("helmet");
 const mongoSanitize = require("express-mongo-sanitize");
 const xss = require("xss-clean");
@@ -76,6 +77,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 //API
 app.use("/", viewRouter);
+app.use("/metrics", prometheusRouter);
 // app.use("/api", limiter);
 // app.use("/api/v1/tours", tourRouter);
 // app.use("/api/v1/users", userRouter);

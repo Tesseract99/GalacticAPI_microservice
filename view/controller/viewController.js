@@ -4,6 +4,7 @@ const ViewTour = require("../models/ViewTourModel");
 // const AppError = require("../utils/appError");
 // const Booking = require("../models/bookingModel");
 const ViewBooking = require("../models/ViewBookingModel");
+const requestCounter = require("../controller/prometheusController");
 
 const {
   AppError,
@@ -45,6 +46,10 @@ exports.getTour = catchAsync(async (req, res, next) => {
 
   // 2) Build template
   // 3) Render template using data from 1)
+
+  //prometheus
+  requestCounter.inc();
+
   res
     .setHeader(
       "Content-Security-Policy",
