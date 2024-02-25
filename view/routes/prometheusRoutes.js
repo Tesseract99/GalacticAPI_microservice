@@ -1,8 +1,9 @@
 const { register } = require("prom-client");
+const express = require("express");
 const router = express.Router();
 
-router.get("/", (_req, res) => {
-  res.send(register.compileToText());
+router.get("/", (req, res) => {
+  res.send(register.metrics());
 });
 
 module.exports = router;
