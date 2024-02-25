@@ -4,7 +4,7 @@ const ViewTour = require("../models/ViewTourModel");
 // const AppError = require("../utils/appError");
 // const Booking = require("../models/bookingModel");
 const ViewBooking = require("../models/ViewBookingModel");
-const requestCounter = require("../controller/prometheusController");
+const { requestCounter } = require("../controller/prometheusController");
 
 const {
   AppError,

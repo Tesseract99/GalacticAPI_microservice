@@ -61,20 +61,6 @@ app.set("views", path.join(__dirname, "views"));
 
 app.use(express.static(path.join(__dirname, "public")));
 
-//views
-// app.get("/", (req, res) => {
-//   res.status(200).render("base", {
-//     quote:
-//       "You're born. You have a set of feelings, emotions, thoughts. You Die",
-//   });
-// });
-
-// app.get("/overview", (req, res) => {
-//   res.status(200).render("overview", {
-//     title: "All Tours",
-//   });
-// });
-
 //API
 app.use("/", viewRouter);
 app.use("/metrics", prometheusRouter);
