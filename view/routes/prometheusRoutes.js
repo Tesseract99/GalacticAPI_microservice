@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const { register } = require("../controller/prometheusController");
-console.log(await register.metrics());
 
 router.get("/", async (req, res) => {
   try {
