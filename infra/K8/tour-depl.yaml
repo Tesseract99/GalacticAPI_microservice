@@ -14,8 +14,8 @@ spec:
     spec:
       containers:
         - name: tour-contr
-          image: public.ecr.aws/s8j2k2x6/tour
-          # image: 557571305961.dkr.ecr.us-east-1.amazonaws.com/tour:latest
+          # image: public.ecr.aws/s8j2k2x6/tour
+          image: 557571305961.dkr.ecr.us-east-1.amazonaws.com/tour:latest
           volumeMounts: #mount the volume from POD into the container
             - name: config-env-vol
               mountPath: /app/env

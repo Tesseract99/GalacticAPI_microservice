@@ -14,8 +14,8 @@ spec:
     spec:
       containers:
         - name: booking-contr
-          image: public.ecr.aws/s8j2k2x6/booking
-          # image: 557571305961.dkr.ecr.us-east-1.amazonaws.com/booking:latest
+          # image: public.ecr.aws/s8j2k2x6/booking
+          image: 557571305961.dkr.ecr.us-east-1.amazonaws.com/booking:latest
           volumeMounts: #mount the volume from POD into the container
             - name: config-env-vol
               mountPath: /app/env

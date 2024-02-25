@@ -1,6 +1,8 @@
-const { register } = require("prom-client");
-register.collectDefaultMetrics();
-const requestCounter = new register.Counter({
+const promClient = require("prom-client");
+
+console.log(promClient);
+const Counter = promClient.Counter;
+const requestCounter = new Counter({
   name: "my_requests_total",
   help: "Total number of requests.",
 });
